@@ -98,17 +98,17 @@ def prep_current_ratings_for_dash(
         .rename(columns={
             "rank": "Rank",
             "player_id": "Name",
-            "n_games": "Games Played",
+            "n_games": "Races Sailed",
             "n_wins": "Wins",
             "rating": "Elo Rating",
         })
     )
 
     # only include players who have played min_games, then re-rank
-    current_ratings = current_ratings[current_ratings["Games Played"] >= min_games]
+    current_ratings = current_ratings[current_ratings["Races Sailed"] >= min_games]
     current_ratings["Rank"] = range(1, current_ratings.shape[0] + 1)
 
-    col_order = ["Rank", "Name", "Games Played", "Wins", "Elo Rating"]
+    col_order = ["Rank", "Name", "Races Sailed", "Wins", "Elo Rating"]
     return current_ratings[col_order]
 
 
