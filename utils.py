@@ -12,11 +12,14 @@ from typing import List, Union
 
 import config
 
+import logging
 
 def load_data_from_gsheet() -> pd.DataFrame:
+    logging.info("Loading data from gsheets")
     gc = set_up_gsheets_client(config.GSHEETS_CREDENTIALS_FILE)
     spreadsheet = gc.open_by_key(config.SPREADSHEET_ID)
     data_sheet = get_worksheet_by_id(spreadsheet, config.DATA_SHEET_ID)
+    logging.info("Got datasheet %s", data_sheet)
     df = worksheet_to_dataframe(data_sheet)
     return df
 
@@ -147,9 +150,9 @@ def plot_tracker_history(
 
     if equal_time_steps:
         date_df = history_df[["date"]].drop_duplicates().sort_values("date").reset_index(drop=True)
-        date_df["game number"] = date_df.index + 1
+        date_df["Race number"] = date_df.index + 1
         history_df = history_df.merge(date_df, on="date", how="inner")
-        x_col = "game number"
+        x_col = "Race number"
     else:
         x_col = "date"
 

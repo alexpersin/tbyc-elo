@@ -1,20 +1,22 @@
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_bootstrap_components as dbc
-import dash_daq as daq
-from dash_table import DataTable
-from dash.dependencies import Input, Output, State
-import plotly.io as pio
-import pandas as pd
-from multielo import MultiElo
-
 import argparse
+import logging
 from typing import List
 
-import utils
-import config
+import dash
+import dash_bootstrap_components as dbc
+import dash_core_components as dcc
+import dash_daq as daq
+import dash_html_components as html
+import pandas as pd
+import plotly.io as pio
+from dash.dependencies import Input, Output, State
+from dash_table import DataTable
+from multielo import MultiElo
 
+import config
+import utils
+
+# logging.basicConfig(level=logging.WARN)
 
 # determine if the script was run with any arguments
 parser = argparse.ArgumentParser()
@@ -60,9 +62,7 @@ def header():
 def footer():
     return html.Div([
         html.Hr(),
-        html.Small("*We claim no affiliation with Red Dog, Miller Brewing Company, or "
-                   "Plank Road Brewing, but we would happily promote for you if you in "
-                   "exchange for free beer :)",
+        html.Small("Forked from https://github.com/djcunningham0/poker-elo-dashboard",
                    className="text-muted font-italic"),
         html.Hr(),
     ])
@@ -92,7 +92,7 @@ def current_elo_tab():
                     ]),
 
                     dbc.InputGroup(children=[
-                        dbc.InputGroupAddon("Minimum games played", addon_type="prepend"),
+                        dbc.InputGroupAddon("Minimum races sailed", addon_type="prepend"),
                         dbc.Input(
                             id="min-games-input",
                             value=1,
@@ -109,7 +109,7 @@ def current_elo_tab():
 
         dbc.Row(children=[
             dbc.Col(children=[
-                section_header("Game Results"),
+                section_header("Race Results"),
                 dbc.Spinner(id="game-results-table")
             ])
         ])
@@ -180,7 +180,7 @@ def scenario_generator_tab():
                     ]),
 
                     dbc.InputGroup(children=[
-                        dbc.InputGroupAddon("Minimum games played", addon_type="prepend"),
+                        dbc.InputGroupAddon("Minimum races sailed", addon_type="prepend"),
                         dbc.Input(
                             id="min-games-input",
                             value=1,
@@ -196,7 +196,7 @@ def scenario_generator_tab():
         html.Br(),
         html.Hr(),
 
-        section_header("Editable Game Result History"),
+        section_header("Editable Race Result History"),
 
         dbc.Row(justify="center", children=[
             dbc.Col(children=[
@@ -219,9 +219,9 @@ def win_probability_tab():
     return html.Div(children=[
         dbc.Row(children=[
             dbc.Col(width=3, children=[
-                section_header("Player List"),
+                section_header("Sailor List"),
                 dcc.Markdown(className="text-muted",
-                             children="Select which players will participate."),
+                             children="Select which sailors will participate."),
                 dbc.Checklist(id="player-options", value=[]),
                 html.Br(),
                 dbc.Button(id="clear-button", children="Clear selections", color="primary")
