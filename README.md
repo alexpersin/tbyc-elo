@@ -1,5 +1,6 @@
 # Sprint 15 Rankings Elo Dashboard
 
+
 A fork of https://github.com/djcunningham0/poker-elo-dashboard, providing a generalized version of Elo to track the 
 results of TBYC's Sprint 15 sailing results.
 
