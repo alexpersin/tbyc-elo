@@ -40,7 +40,7 @@ app.config["suppress_callback_exceptions"] = True
 
 def header():
     logo = dbc.CardImg(src=config.LOGO_PATH)
-    # TODO: make GitHub link open in a new tab
+    # TODO:  make GitHub link open in a new tab
     github_link = dbc.Row(align="center", form=True, justify="end", children=[
         dbc.Col(html.Img(src=config.GITHUB_LOGO_PATH), width="auto"),
         dbc.Col(dbc.Button(children=["View on GitHub"], href=config.GITHUB_URL, color="primary", outline=True))
